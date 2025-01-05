@@ -5,7 +5,7 @@ import { api } from "../../services";
 import { TABLE_CONFIG } from "./utils";
 
 const LoadingSpinner = (): JSX.Element => (
-  <div className={styles.loadingContainer}>
+  <div className={styles.loadingContainer} data-testid="loading-spinner">
     <div className={styles.spinner}></div>
   </div>
 );
