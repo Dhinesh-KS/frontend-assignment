@@ -7,12 +7,16 @@
 .content {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 24px;
 }
 
 .title {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 24px;
+    border-bottom: 2px solid #e2e8f0;
+    text-align: center;
 }
 
 .loadingContainer {
@@ -47,4 +51,18 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+.tableRow {
+    transition: background-color 0.2s ease;
+}
+
+.tableRow:hover {
+    background-color: #f1f5f9;
+}
+
+.tableCell {
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    color: #334155;
 }

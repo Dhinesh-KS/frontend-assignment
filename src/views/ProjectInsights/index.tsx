@@ -60,7 +60,7 @@ const ProjectInsights: React.FC = () => {
           {(currentPage - 1) * TABLE_CONFIG.ITEMS_PER_PAGE + index + 1}
         </td>
         <td className={styles.tableCell}>{project["percentage.funded"]}</td>
-        <td className={styles.tableCell}>${project["amt.pledged"]}</td>
+        <td className={styles.tableCell}>{project["amt.pledged"]}</td>
       </tr>
     ),
     [currentPage]
