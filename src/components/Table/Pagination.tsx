@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import styles from "./styles.module.css";
 import { PaginationProps } from "./types";
 
