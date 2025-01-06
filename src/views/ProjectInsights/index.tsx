@@ -11,7 +11,9 @@ const LoadingSpinner = (): JSX.Element => (
 );
 
 const ErrorMessage = ({ message }: any): JSX.Element => (
-  <div className={styles.errorContainer}>Error: {message}</div>
+  <div className={styles.errorContainer} data-testid="error-state">
+    Error: {message}
+  </div>
 );
 
 const ProjectInsights: React.FC = () => {
