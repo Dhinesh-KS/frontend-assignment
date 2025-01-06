@@ -1,8 +1,7 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, it, expect } from "vitest";
+import { render, screen } from "@testing-library/react";
 import Table from "../index";
 import "@testing-library/jest-dom/vitest";
-import Pagination from "../Pagination";
 import TableBody from "../TableBody";
 import TableHeader from "../TableHeader";
 
@@ -30,9 +29,7 @@ describe("Table Component", () => {
         headers={mockHeaders}
         data={mockData}
         renderRow={mockRenderRow}
-        currentPage={1}
-        totalPages={1}
-        onPageChange={() => {}}
+        initialItemsPerPage={5}
       />
     );
 
@@ -47,10 +44,8 @@ describe("Table Component", () => {
         headers={mockHeaders}
         data={mockData}
         renderRow={mockRenderRow}
-        currentPage={1}
-        totalPages={2}
-        onPageChange={() => {}}
         showPagination={false}
+        initialItemsPerPage={5}
       />
     );
 
@@ -63,68 +58,12 @@ describe("Table Component", () => {
         headers={mockHeaders}
         data={mockData}
         renderRow={mockRenderRow}
-        currentPage={1}
-        totalPages={1}
-        onPageChange={() => {}}
         className="custom-class"
+        initialItemsPerPage={5}
       />
     );
 
     expect(container.querySelector(".custom-class")).toBeInTheDocument();
-  });
-});
-
-describe("Pagination Component", () => {
-  const onPageChange = vi.fn();
-
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it("renders correct number of page buttons", () => {
-    render(
-      <Pagination
-        currentPage={1}
-        totalPages={5}
-        onPageChange={onPageChange}
-        maxVisiblePages={5}
-      />
-    );
-
-    expect(screen.getAllByRole("button")).toHaveLength(7); // 5 page buttons + Previous + Next
-  });
-
-  it("disables Previous button on first page", () => {
-    render(
-      <Pagination currentPage={1} totalPages={5} onPageChange={onPageChange} />
-    );
-
-    expect(screen.getByLabelText("Previous page")).toBeDisabled();
-    expect(screen.getByLabelText("Next page")).not.toBeDisabled();
-  });
-
-  it("disables Next button on last page", () => {
-    render(
-      <Pagination currentPage={5} totalPages={5} onPageChange={onPageChange} />
-    );
-
-    expect(screen.getByLabelText("Previous page")).not.toBeDisabled();
-    expect(screen.getByLabelText("Next page")).toBeDisabled();
-  });
-
-  it("handles page changes correctly", () => {
-    render(
-      <Pagination currentPage={2} totalPages={5} onPageChange={onPageChange} />
-    );
-
-    fireEvent.click(screen.getByText("3"));
-    expect(onPageChange).toHaveBeenCalledWith(3);
-
-    fireEvent.click(screen.getByLabelText("Next page"));
-    expect(onPageChange).toHaveBeenCalledWith(3);
-
-    fireEvent.click(screen.getByLabelText("Previous page"));
-    expect(onPageChange).toHaveBeenCalledWith(1);
   });
 });
 
