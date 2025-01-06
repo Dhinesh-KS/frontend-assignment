@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Table from "../../components/Table";
 import styles from "./styles.module.css";
 import { api } from "../../services";
@@ -18,7 +18,6 @@ const ErrorMessage = ({ message }: any): JSX.Element => (
 
 const ProjectInsights: React.FC = () => {
   const [projects, setProjects] = useState([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -42,30 +41,15 @@ const ProjectInsights: React.FC = () => {
     fetchData();
   }, []);
 
-  const paginatedData = useMemo(() => {
-    const indexOfLastProject = currentPage * TABLE_CONFIG.ITEMS_PER_PAGE;
-    const indexOfFirstProject =
-      indexOfLastProject - TABLE_CONFIG.ITEMS_PER_PAGE;
-
-    return {
-      currentProjects: projects.slice(indexOfFirstProject, indexOfLastProject),
-      totalPages: Math.ceil(projects.length / TABLE_CONFIG.ITEMS_PER_PAGE),
-    };
-  }, [projects, currentPage]);
-
-  const { currentProjects, totalPages } = paginatedData;
-
   const renderTableRow = useCallback(
     (project: any, index: number): JSX.Element => (
       <tr key={index} className={styles.tableRow}>
-        <td className={styles.tableCell}>
-          {(currentPage - 1) * TABLE_CONFIG.ITEMS_PER_PAGE + index + 1}
-        </td>
+        <td className={styles.tableCell}>{index + 1}</td>
         <td className={styles.tableCell}>{project["percentage.funded"]}</td>
         <td className={styles.tableCell}>{project["amt.pledged"]}</td>
       </tr>
     ),
-    [currentPage]
+    []
   );
 
   if (loading) return <LoadingSpinner />;
@@ -78,11 +62,9 @@ const ProjectInsights: React.FC = () => {
 
         <Table
           headers={TABLE_CONFIG.HEADERS}
-          data={currentProjects}
-          currentPage={currentPage}
-          totalPages={totalPages}
+          data={projects}
+          initialItemsPerPage={10}
           renderRow={renderTableRow}
-          onPageChange={setCurrentPage}
         />
       </div>
     </div>

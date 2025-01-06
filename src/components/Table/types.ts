@@ -7,9 +7,7 @@ export interface TableProps {
   headers: TableHeader[];
   data: any[];
   renderRow: (item: any, index: number) => JSX.Element;
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
+  initialItemsPerPage: number;
   className?: string;
   showPagination?: boolean;
 }
@@ -26,6 +24,9 @@ export interface TableBodyProps {
 export interface PaginationProps {
   currentPage: number;
   totalPages: number;
+  itemsPerPage: number;
+  totalItems: number;
   onPageChange: (page: number) => void;
+  onItemsPerPageChange: (itemsPerPage: number) => void;
   maxVisiblePages?: number;
 }
